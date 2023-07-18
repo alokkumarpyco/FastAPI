@@ -41,8 +41,8 @@ async def read_author_category_by_query(book_author: str, category: str):
     book_to_return = []
     for book in BOOKS:
         if (
-            book.get("author").casefold() == book_author.casefold()
-            and book.get("category").casefold() == category.casefold()
+                book.get("author").casefold() == book_author.casefold()
+                and book.get("category").casefold() == category.casefold()
         ):
             book_to_return.append(book)
     return book_to_return
@@ -61,54 +61,14 @@ async def update_book(updated_book=Body()):
             BOOKS[i] = updated_book
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@app.delete("/books/delete_book/{book_title}")
+async def delete_book(book_title: str):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].get("title").casefold() == book_title.casefold():
+            msg = {"msg": "Book got deleted successfully"}
+            item = {**BOOKS[i], **msg}
+            BOOKS.pop(i)
+            return item
 
 @app.get("/books/numbers/")
 async def get_a_random_number():
